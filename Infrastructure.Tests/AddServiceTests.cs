@@ -14,7 +14,7 @@ namespace Infrastructure.Tests
 
             ////////////////////////////////////
             /// ACT
-            var result = addService.Add(1, 1);
+            var result = addService.Calculate(1, 1);
 
             ////////////////////////////////////
             /// ASSERT

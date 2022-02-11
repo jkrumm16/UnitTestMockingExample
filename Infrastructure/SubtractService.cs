@@ -4,7 +4,7 @@ namespace Infrastructure
 {
     public class SubtractService : ExtensionsServiceBase
     {
-        public int Subtract(int numberOne, int numberTwo)
+        public override int Calculate(int numberOne, int numberTwo)
         {
             var subtractOperation = new SubtractOperation
             {

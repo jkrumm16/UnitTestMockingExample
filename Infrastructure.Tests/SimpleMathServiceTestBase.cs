@@ -1,4 +1,4 @@
-﻿using Infrastructure.Base;
+﻿﻿using Infrastructure.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Infrastructure.Tests

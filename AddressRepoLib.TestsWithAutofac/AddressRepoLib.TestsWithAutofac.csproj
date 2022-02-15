@@ -83,7 +83,7 @@
   <ItemGroup>
     <Compile Include="AddressRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WithProperBaseClass\AddressRepositoryTestsDerived.cs" />
+    <Compile Include="WithProperBaseClass\AddressRepositoryTestsUsingJson.cs" />
     <Compile Include="WithProperBaseClass\MyTestBase.cs" />
   </ItemGroup>
   <ItemGroup>

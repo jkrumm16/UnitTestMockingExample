@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
 {
-    public class MyTestBase<TServiceUnderTest>
+    public class MyTestBase<TInstanceUnderTest>
     {
         protected ContainerBuilder Builder { get; private set; }
         protected List<object> TestDependencies { get; private set; }
-        protected TServiceUnderTest ServiceUnderTest { get; private set; }
-        protected Exception ExceptionThrownInTest { get; private set; }
+        protected TInstanceUnderTest InstanceUnderTest { get; private set; }
+        protected Exception ExceptionThrownByInstanceUnderTest { get; private set; }
 
         [TestInitialize]
         public void OnInitialize()
@@ -30,22 +30,22 @@ namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
         {
         }
 
-        protected virtual void InjectMockedDependency<T>(Mock<T> dependency) where T : class
+        protected virtual void RegisterMockedDependency<T>(Mock<T> dependency) where T : class
         {
             Builder.RegisterInstance(dependency.Object);
         }
 
-        protected void ActAndAssert(Action<TServiceUnderTest> a)
+        protected void ActAndAssert(Action<TInstanceUnderTest> theInnerActAndAssertAction)
         {
             using (var scope = Builder.Build().BeginLifetimeScope())
             {
                 try
                 {
-                    a(scope.Resolve<TServiceUnderTest>());
+                    theInnerActAndAssertAction(scope.Resolve<TInstanceUnderTest>());
                 }
                 catch (Exception ex)
                 {
-                    ExceptionThrownInTest = ex;
+                    ExceptionThrownByInstanceUnderTest = ex;
                 }
             }
         }

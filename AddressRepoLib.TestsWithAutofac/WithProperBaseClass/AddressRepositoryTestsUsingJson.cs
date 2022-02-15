@@ -1,19 +1,20 @@
 ﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
 {
-    [TestClass]
-    public class AddressRepositoryTestsDerived : MyTestBase<IAddressRepository>
-    {
-        protected override void Arrange(ContainerBuilder containerBuilder)
-        {
-            Builder.RegisterType<AddressRepository>().As<IAddressRepository>();
-            Builder.RegisterType<JsonAddressDeserializer>().As<IAddressDeserializer>();
 
-            var dataSourceMock = new Mock<IAddressDataSource>();
-            dataSourceMock.Setup(x => x.GetAllAddresses()).Returns(new string[]
+    [TestClass]
+    public class AddressRepositoryTestsUsingJson : AddressRepositoryTestsBase
+    {
+        protected override void RegisterSerializer(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<JsonAddressDeserializer>().As<IAddressDeserializer>();
+        }
+
+        protected override string[] GetMockedTestData()
+        {
+            return new string[]
             {
 @"{
     ""LastName"":""Mustermann"",
@@ -33,24 +34,22 @@ namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
     ""City"":""Musterhausen"",
     ""ISOA2CountryCode"":""DE""
 }"
-            });
-
-            InjectMockedDependency(dataSourceMock);
+            };
         }
 
         [TestMethod]
         public void AddressRepository_GetAllAddresses_AsJson_ShouldGetTwoAddressCorrect()
         {
-            ActAndAssert((systemUnderTest) =>
+            ActAndAssert((instanceUnderTest) =>
             {
                 ////////////////////////////////////////////////////////////////
                 /// ACT
-                var addresses = systemUnderTest.GetAllAddresses();
+                var addresses = instanceUnderTest.GetAllAddresses();
 
                 ////////////////////////////////////////////////////////////////
                 /// ASSERT
 
-                Assert.IsNull(ExceptionThrownInTest);
+                Assert.IsNull(ExceptionThrownByInstanceUnderTest);
                 Assert.AreEqual(2, addresses.Length);
                 Assert.AreEqual("Max", addresses[0].FirstName);
                 Assert.AreEqual("Erika", addresses[1].FirstName);

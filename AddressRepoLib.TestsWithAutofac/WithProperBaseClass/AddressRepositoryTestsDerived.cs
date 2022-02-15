@@ -10,7 +10,7 @@ namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
         protected override void Arrange(ContainerBuilder containerBuilder)
         {
             Builder.RegisterType<AddressRepository>().As<IAddressRepository>();
-            Builder.RegisterType<JsonAddressParser>().As<IAddressParser>();
+            Builder.RegisterType<JsonAddressDeserializer>().As<IAddressDeserializer>();
 
             var dataSourceMock = new Mock<IAddressDataSource>();
             dataSourceMock.Setup(x => x.GetAllAddresses()).Returns(new string[]
@@ -41,18 +41,16 @@ namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
         [TestMethod]
         public void AddressRepository_GetAllAddresses_AsJson_ShouldGetTwoAddressCorrect()
         {
-            ActAndAssert((testScope) =>
+            ActAndAssert((systemUnderTest) =>
             {
                 ////////////////////////////////////////////////////////////////
-                /// ARRANGE
-                var repository = testScope.Resolve<IAddressRepository>();
-
-                ////////////////////////////////////////////////////////////////
                 /// ACT
-                var addresses = repository.GetAllAddresses();
+                var addresses = systemUnderTest.GetAllAddresses();
 
                 ////////////////////////////////////////////////////////////////
                 /// ASSERT
+
+                Assert.IsNull(ExceptionThrownInTest);
                 Assert.AreEqual(2, addresses.Length);
                 Assert.AreEqual("Max", addresses[0].FirstName);
                 Assert.AreEqual("Erika", addresses[1].FirstName);

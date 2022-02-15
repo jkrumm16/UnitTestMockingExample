@@ -35,15 +35,15 @@ namespace AddressRepoLib.TestsWithAutofac.WithProperBaseClass
             Builder.RegisterInstance(dependency.Object);
         }
 
-        protected void ActAndAssert(Action<ILifetimeScope> a)
+        protected void ActAndAssert(Action<TServiceUnderTest> a)
         {
             using (var scope = Builder.Build().BeginLifetimeScope())
             {
                 try
                 {
-                    a(scope);
+                    a(scope.Resolve<TServiceUnderTest>());
                 }
-                catch ( Exception ex ) 
+                catch (Exception ex)
                 {
                     ExceptionThrownInTest = ex;
                 }

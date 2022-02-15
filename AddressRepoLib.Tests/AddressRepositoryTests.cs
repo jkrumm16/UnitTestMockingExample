@@ -34,7 +34,7 @@ namespace AddressRepoLib.Tests
 }"
             });
 
-            var addressRepository = new AddressRepository(dataSourceMock.Object, new JsonAddressParser());
+            var addressRepository = new AddressRepository(dataSourceMock.Object, new JsonAddressDeserializer());
 
             ////////////////////////////////////////////////////////////////
             /// ARRANGE
@@ -79,7 +79,7 @@ namespace AddressRepoLib.Tests
   <ISOA2CountryCode>DE</ISOA2CountryCode>
 </Address>" });
 
-            var addressRepository = new AddressRepository(dataSourceMock.Object, new XmlAddressParser());
+            var addressRepository = new AddressRepository(dataSourceMock.Object, new XmlAddressDeserializer());
 
             ////////////////////////////////////////////////////////////////
             /// ARRANGE

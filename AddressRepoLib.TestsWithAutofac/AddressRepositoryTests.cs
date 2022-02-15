@@ -37,7 +37,7 @@ namespace AddressRepoLib.Tests
 
             var builder = new ContainerBuilder();
             builder.RegisterType<AddressRepository>().As<IAddressRepository>();
-            builder.RegisterType<JsonAddressParser>().As<IAddressParser>();
+            builder.RegisterType<JsonAddressDeserializer>().As<IAddressDeserializer>();
             builder.RegisterInstance(dataSourceMock.Object);
             var iocContainer = builder.Build();
 
@@ -93,7 +93,7 @@ namespace AddressRepoLib.Tests
 
             var builder = new ContainerBuilder();
             builder.RegisterType<AddressRepository>().As<IAddressRepository>();
-            builder.RegisterType<XmlAddressParser>().As<IAddressParser>();
+            builder.RegisterType<XmlAddressDeserializer>().As<IAddressDeserializer>();
             builder.RegisterInstance(dataSourceMock.Object);
             var iocContainer = builder.Build();
 

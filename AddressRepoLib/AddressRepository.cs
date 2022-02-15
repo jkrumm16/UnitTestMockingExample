@@ -6,20 +6,20 @@ namespace AddressRepoLib
     public class AddressRepository : IAddressRepository
     {
         private readonly IAddressDataSource _addressDataSource;
-        private readonly IAddressParser _addressParser;
+        private readonly IAddressDeserializer _addressDeserializer;
 
         public AddressRepository(IAddressDataSource addressDataSource,
-                                 IAddressParser addressParser)
+                                 IAddressDeserializer addressDeserializer)
         {
             _addressDataSource = addressDataSource;
-            _addressParser = addressParser;
+            _addressDeserializer = addressDeserializer;
         }
 
         public Address[] GetAllAddresses()
         {
             var serializedAddresses = _addressDataSource.GetAllAddresses();
 
-            var addresses = serializedAddresses.Select(x => _addressParser.Parse(x)).ToArray();
+            var addresses = serializedAddresses.Select(x => _addressDeserializer.Parse(x)).ToArray();
 
             return addresses;
         }

@@ -1,6 +1,6 @@
 ﻿namespace AddressRepoLib
 {
-    public interface IAddressParser
+    public interface IAddressDeserializer
     {
         Address Parse(string addressSerialized);
     }

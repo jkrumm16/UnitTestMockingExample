@@ -47,11 +47,11 @@
     <Compile Include="Address.cs" />
     <Compile Include="AddressRepository.cs" />
     <Compile Include="IAddressDataSource.cs" />
-    <Compile Include="IAddressParser.cs" />
+    <Compile Include="IAddressDeserializer.cs" />
     <Compile Include="IAddressRepository.cs" />
-    <Compile Include="JsonAddressParser.cs" />
+    <Compile Include="JsonAddressDeserializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlAddressParser.cs" />
+    <Compile Include="XmlAddressDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
